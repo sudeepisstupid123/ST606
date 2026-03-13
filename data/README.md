@@ -8,7 +8,7 @@ the wave-1 dataset is available at [this link](https://ess.sikt.no/en/datafile/8
 
 the wave-2 dataset is available at [this link](https://ess.sikt.no/en/datafile/461cfa21-a2fe-4919-83ad-46158df1658e?tab=1&elems=17c2d631-4a4a-49b7-85f4-3bbbb637b28d).
 
-the wave-3 dataset is available at [this link](hhttps://ess.sikt.no/en/datafile/5f7b3c93-902b-490d-aedf-1d606fb03f36?tab=1&elems=7208e2fa-95f1-4292-91c9-5e09468a55e6).
+the wave-3 dataset is available at [this link](https://ess.sikt.no/en/datafile/5f7b3c93-902b-490d-aedf-1d606fb03f36?tab=1&elems=7208e2fa-95f1-4292-91c9-5e09468a55e6)
 
 the wave-4 dataset is available at [this link](https://ess.sikt.no/en/datafile/7a0da296-2bd1-4f90-a590-97273c37c6fe?tab=1&elems=2dec8a05-79ac-4696-8cd5-04f89e580e28)
 
