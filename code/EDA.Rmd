@@ -15,13 +15,14 @@ This is an R Markdown document. Markdown is a simple formatting syntax for autho
 
 When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
 
-```{r cars}
+```{r}
 library(tidyverse)
 library(here)
 library(haven)
 library(labelled)
 library(sjlabelled)
 library(ggplot2)
+library(dplyr)
 ```
 
 
@@ -238,7 +239,6 @@ healthy_wave1     (w1hq11)  Needed diagnostic tests or scans, prescribed by a do
 
 dataset            predicotr variable
 healthy_wave1     (w1hq5)   Wait time for medical specialist appointment 
- months(case=1)
 ""                (cntry)   Country
 ""                (age)     age
 
@@ -283,12 +283,12 @@ healthy_wave1$total_needed <- rowSums(
 ```
 
 ```{r}
-country_summary <- healthy_wave1 %>%
+country_summary=healthy_wave1 %>%
   group_by(cntry) %>%
   summarise(
     total_people = n(),
     people_needed = sum(needed_any, na.rm = TRUE),
-    proportion = people_needed
+    proportion = people_needed/total_people
   )
 ```
 
@@ -329,16 +329,128 @@ country_summary=healthy_wave1 %>%
 
 country_summary
 ```
+```{r}
+healthy_wave1 |>
+  summarise(
+    GP=sum(w1hq1==1,na.rm=TRUE),
+    Specialist=sum(w1hq3==1,na.rm = TRUE),
+    dentist=sum(w1hq6==1,na.rm = TRUE),
+    diagnostic_test_req=sum(w1hq11==1,na.rm = TRUE)
+  )|>pivot_longer(
+    cols=everything(),
+    names_to = "Service",
+    values_to = "Count"
+  )|>
+  ggplot(aes(x=Service,y=Count))+
+  geom_bar(stat = "identity")+
+  labs(
+    title = " Unmet health care services across 11 countires",
+    x = "Service Type",
+    y = "Count"
+  )+ scale_x_discrete(labels = c(
+  GP = "General Practitioner",
+  Specialist = "Specialist",
+  Dentist = "Dentist",
+  diagnostic_test_req = "Diagnostic Test"
+))
+```
+
+```{r}
+healthy_wave1|>
+  filter(cntry=="GB")|>
+  summarise(
+    GP=sum(w1hq1==1,na.rm=TRUE),
+    Specialist=sum(w1hq3==1,na.rm = TRUE),
+    dentist=sum(w1hq6==1,na.rm = TRUE),
+    diagnostic_test_req=sum(w1hq11==1,na.rm = TRUE)
+  )|>pivot_longer(
+    cols=everything(),
+    names_to = "Service",
+    values_to = "Count"
+  )|>
+  ggplot(aes(x=Service,y=Count))+
+  geom_bar(stat = "identity")+
+  labs(
+    title = " Unmet health care services United Kingdom",
+    x = "Service Type",
+    y = "Count"
+  )+ scale_x_discrete(labels = c(
+  GP = "General Practitioner",
+  Specialist = "Specialist",
+  Dentist = "Dentist",
+  diagnostic_test_req = "Diagnostic Test"
+))
+```
+```{r}
+healthy_wave1|>
+  filter(cntry=="FI")|>
+  summarise(
+    GP=sum(w1hq1==1,na.rm=TRUE),
+    Specialist=sum(w1hq3==1,na.rm = TRUE),
+    dentist=sum(w1hq6==1,na.rm = TRUE),
+    diagnostic_test_req=sum(w1hq11==1,na.rm = TRUE)
+  )|>pivot_longer(
+    cols=everything(),
+    names_to = "Service",
+    values_to = "Count"
+  )|>
+  ggplot(aes(x=Service,y=Count))+
+  geom_bar(stat = "identity")+
+  labs(
+    title = " Unmet health care services Finland",
+    x = "Service Type",
+    y = "Count"
+  )+ scale_x_discrete(labels = c(
+  GP = "General Practitioner",
+  Specialist = "Specialist",
+  Dentist = "Dentist",
+  diagnostic_test_req = "Diagnostic Test"
+))
+```
+```{r}
+healthy_wave1|>
+  filter(cntry=="BE")|>
+  summarise(
+    GP=sum(w1hq1==1,na.rm=TRUE),
+    Specialist=sum(w1hq3==1,na.rm = TRUE),
+    dentist=sum(w1hq6==1,na.rm = TRUE),
+    diagnostic_test_req=sum(w1hq11==1,na.rm = TRUE)
+  )|>pivot_longer(
+    cols=everything(),
+    names_to = "Service",
+    values_to = "Count"
+  )|>
+  ggplot(aes(x=Service,y=Count))+
+  geom_bar(stat = "identity")+
+  labs(
+    title = " Unmet health care services Belgium",
+    x = "Service Type",
+    y = "Count"
+  )+ scale_x_discrete(labels = c(
+  GP = "General Practitioner",
+  Specialist = "Specialist",
+  Dentist = "Dentist",
+  diagnostic_test_req = "Diagnostic Test"
+))
+```
 there are are a total 
 going to see how to handle duplicate values based on 
 checking id-25213 
 in healthy_wave1 25213 id has two entries with countries as CZ and FI 
 trying to see how the ids are filled realized that for every country that a given range of values to assigned 
-so as to create 
+so as to create unique values we will be merging cntry and idno to create new value which will be the new primary key for filtering 
 
+solving duplicates by merging the cntry and idno column 
+checking with healthwave_1 dataset 
 
+```{r}
+library(dplyr)
 
-
+primary_health_wave1=healthy_wave1|>
+  mutate(new_id = paste(cntry, idno, sep = "_"))
+sum(duplicated(primary_health_wave1$new_id))
+```
+on merging a column country and idno to create a new unque id there still exist duplicates but has got reduced 
 
 
 
