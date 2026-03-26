@@ -25,7 +25,6 @@ library(ggplot2)
 library(dplyr)
 ```
 
-
 loading wave 1 data
 ```{r}
 healthy_wave1=haven::read_sav(here("data","CRONOS3 Theme - Make it Healthy.sav"))
@@ -60,7 +59,6 @@ healthy_wave1$idno[
 note- in healty wave 1 dataset there were 3 recipants with idno 25213  the same amount was there in healthy wave 3 dataset  
 and the same in wave_5 datset
 
-
 want to see which id of wave_1 are not there in wave 5 
 ```{r}
 setdiff(healthy_wave1$idno[healthy_wave1$w1hq3 == 1], healthy_wave5$idno)
@@ -74,129 +72,6 @@ before removing the values the amount of values who could not see medical specia
 ```{r}
 sum(healthy_wave1$w1hq3 == 1, na.rm = TRUE)
 ```
-
-for now lets proceed with 
-removing duplicate values 
-
-```{r}
-healthy_wave1=healthy_wave1[!duplicated(healthy_wave1$idno), ]
-healthy_wave3=healthy_wave3[!duplicated(healthy_wave3$idno), ]
-healthy_wave5=healthy_wave5[!duplicated(healthy_wave5$idno), ]
-```
-
-check out the data availability for w1hq3(Needed to see medical specialists (excluding dentists and mental health services) last 12 months)
-```{r}
-ggplot(healthy_wave1, aes(x = as_factor(w1hq3))) +
-  geom_bar() +
-  labs(
-    title = "Needed to See Medical Specialist (Last 12 Months)",
-    x = "Response",
-    y = "Count"
-  ) +
-  theme_minimal()
-```
-there are 284 repsondants after removing the duplicates we have lost 40 potential data points fo the predictor 
-```{r}
-sum(healthy_wave1$w1hq3 == 1, na.rm = TRUE)
-```
-
-```{r}
-sum(healthy_wave1$w1hq3 == 1|2|3, na.rm = TRUE)
-```
-
-there are around 284 responces which were saying- Yes, but I was unable to do so
-
-284 out of 10716
-
-which is quite normal but lets see the underlying factors
-
-```{r}
-length(unique(healthy_wave3$cntry))
-```
-there are a total of 11 countries out of which  284 people wanted  medical specialists but could not get it 
-
-```{r}
-ggplot(healthy_wave1[!is.na(healthy_wave1$w1hq5), ], aes(x = as_factor(w1hq5))) +
-  geom_bar() +
-  labs(
-    title = "Waiting period for a medical specialist",
-    x = "Response",
-    y = "Count"
-  ) +
-  theme_minimal()
-```
-Less than one month-1
-One to two months-2
-Three to five month-3
-Six to eight months	4
-Nine months to one year-5
-More than a year-6
-I don’t know-7
-
-```{r}
-sum((healthy_wave1$w1hq3 == 1|2|3|4|5|6|7)&(healthy_wave1$w1hq3 == 1), na.rm = TRUE)
-```
-just checking if there blank values for this case 
-
-
-there are some idno number which dont exist in wave 1 dataset
-
-TITLE- Predicting Unmet Need for Medical Specialist Care
- ATTRIBUTE SELECTION 
- dataset name       attribute name
- healthy_wave1      Wait time for medical specialist appointment(w1hq5)
- ''                 Needed to see medical specialists (excluding dentists and mental health services)(w1hq3)
- ''                 Waiting list for diagnostic tests prescribed by a doctor(w1hq13)
- ''                 cntry (country)
- ''                 idno 
-                    age
-                    
- 
- healthy_wave5      Healthcare costs covered by system (w5hq18)
- 
- healthy_wave3      Adequate salary considering efforts (w3hq89)
- ''                 Subjective mental health in general(w3hq57)
- ''                 Subjective physical health in general(w3hq58)
-
-
-
-analysis in healthywave 5 dataset
-
-not all idno numbers who did not get access to medical specialist have filled the following column Healthcare costs covered by system only 221 out of 284 have filled 
-```{r}
-sum((healthy_wave1$idno[healthy_wave1$w1hq3==1& !is.na(healthy_wave1$w1hq3)])%in% healthy_wave5$idno)
-```
-healthy wave 3 dataset 
-not all idno numbers who did not get access to medical specialist have filled the following column Healthcare costs covered by system only 237 out of 284 have filled 
-
-```{r}
-sum((healthy_wave1$idno[healthy_wave1$w1hq3==1& !is.na(healthy_wave1$w1hq3)])%in% healthy_wave3$idno)
-```
-```{r}
-sum(duplicated(healthy_wave1$idno))
-```
-```{r}
-merged_data=merge(
-  healthy_wave1,
-  healthy_wave5,
-  by = "idno"
-)
-```
-
-```{r}
-merged_data=merge(
-  merged_data,
-  healthy_wave3,
-  by = "idno"
-)
-```
-
-a lot of loss of data might need to check and with to find a way to tackle the duplicate values 
-```{r}
-sum(merged_data$w1hq3==1,na.rm = T)
-```
- 
-
 
 idea- 2 
 Needed to see a general practitioner last 12 months (w1hq1)
@@ -222,12 +97,13 @@ sum(healthy_wave1$w1hq3 == 1, na.rm = TRUE)
 
 ```{r}
 length(healthy_wave1$idno[
-  which(healthy_wave1$w1hq6 == 1|
-        healthy_wave1$w1hq3 == 1|
-        healthy_wave1$w1hq1 == 1)
+  which(healthy_wave1$w1hq6==1|
+        healthy_wave1$w1hq3==1|
+        healthy_wave1$w1hq1==1|
+        healthy_wave1$w1hq11==1)
 ])
 ```
-we have increased the number of observation to 986 rather than just 324
+we have increased the number of observation to 1048
 
 unmet healthcare need
 merged Predictor variable required 
@@ -254,18 +130,11 @@ healthy_wave5     (w5hq18)  Healthcare costs covered by system
 ""                (w5hq12)  Felt lonely, how much of the time past week
 
 
+handling duplicate values 
 
-
-
-
-
-
-checking country wise analysis 
-
-filtering out data 
 ```{r}
 
-healthy_wave1$needed_any <- ifelse(
+healthy_wave1$needed_any=ifelse(
   healthy_wave1$w1hq1 == 1 |
   healthy_wave1$w1hq3 == 1 |
   healthy_wave1$w1hq6 == 1 |
@@ -273,18 +142,127 @@ healthy_wave1$needed_any <- ifelse(
   1, 0
 )
 ```
+there are are a total 
+going to see how to handle duplicate values based on 
+checking id-25213 
+in healthy_wave1 25213 id has two entries with countries as CZ and FI 
+trying to see how the ids are filled realized that for every country that a given range of values to assigned 
+so as to create unique values we will be merging cntry and idno to create new value which will be the new primary key for filtering 
 
+solving duplicates by merging the cntry and idno column 
+checking with healthwave_1 dataset 
+
+```{r}
+primary_health_wave1=healthy_wave1|>
+  mutate(new_id = paste(cntry, idno, sep = "_"))
+sum(duplicated(primary_health_wave1$new_id))
+```
+on merging a column country and idno to create a new unque id there still exist duplicates but has got reduced 1431 to 21 
+
+```{r}
+primary_health_wave1=healthy_wave1|>
+  mutate(new_id = paste(cntry,idno,age, sep = "_"))
+sum(duplicated(primary_health_wave1$new_id))
+```
+
+```{r}
+primary_health_wave5=healthy_wave5|>
+  mutate(new_id = paste(cntry,idno,age, sep = "_"))
+sum(duplicated(primary_health_wave5$new_id))
+```
+
+```{r}
+primary_health_wave3=healthy_wave3|>
+  mutate(new_id = paste(cntry,idno,age, sep = "_"))
+sum(duplicated(primary_health_wave3$new_id))
+```
+on merging with with three columns which is age,idno and country wee were able to remove the duplicates 
+now why did we choose these three columns because these three columns were common between all datasets 
+
+```{r}
+length(primary_health_wave1$new_id[
+  which(primary_health_wave1$w1hq6 == 1|
+        primary_health_wave1$w1hq3 == 1|
+        primary_health_wave1$w1hq1 == 1|
+        primary_health_wave1$w1hq11==1)
+])
+```
+OK before merging data sets there is a total of 1048 useful observation 
+
+```{r}
+varible_analysis_heath_wave1=primary_health_wave1 |>
+  filter(as.numeric(w1hq6) == 1|
+           as.numeric(w1hq3)==1|
+           as.numeric(w1hq1)==1|
+           as.numeric(w1hq11)==1)|>
+  select(new_id,age,cntry,w1hq5,w1hq1,w1hq3,w1hq6,w1hq11)
+
+varible_analysis_heath_wave1|>
+  count(w1hq5,drop=FALSE)
+```
+(w1hq5)   Wait time for medical specialist appointment
+Less than one month-1
+One to two months-2
+Three to five months-3
+Six to eight months-4
+Nine months to one year-5
+More than a year-6
+I don’t know-7
+
+from this we can say that there is a lot of 845 na values out of 1048 rows in the dataset (need to discuss with ma'am)
+
+
+
+columns being selected 
+healthy_wave3     (w3hq77)  Currently in paid work
+""                (w3hq57)  Subjective mental health in general
+""                (w3hq58)  Subjective physical health in general
+""                (w3hq87)  How difficult to take an hour off for personal/family matters during work
+
+```{r}
+merged_Dataset_wave1_and_3=varible_analysis_heath_wave1|>
+  inner_join(
+    primary_health_wave3|>
+      select(new_id,w3hq77,w3hq57,w3hq58,w3hq87),
+    by="new_id"
+  )
+merged_Dataset_wave1_and_3
+```
+
+```{r}
+merged_Dataset_wave1_and_3_and_5=merged_Dataset_wave1_and_3|>
+  inner_join(
+    primary_health_wave5|>
+      select(new_id,w5hq18,w5hq11,w5hq8,w5hq17,w5hq12),
+    by="new_id"
+  )
+merged_Dataset_wave1_and_3_and_5
+```
+on merging the dataset based we have only 803 rows out of the original 1048 rows
+
+
+Country wise analysis
 counting the data
 ```{r}
-healthy_wave1$total_needed <- rowSums(
-  healthy_wave1[, c("w1hq1", "w1hq3", "w1hq6","w1hq11")],
+merged_Dataset_wave1_and_3_and_5$total_needed =rowSums(
+  merged_Dataset_wave1_and_3_and_5[, c("w1hq1", "w1hq3", "w1hq6","w1hq11")],
   na.rm = TRUE
+)
+```
+filtering out data 
+```{r}
+merged_Dataset_wave1_and_3_and_5$needed_any=ifelse(
+  merged_Dataset_wave1_and_3_and_5$w1hq1 == 1 |
+  merged_Dataset_wave1_and_3_and_5$w1hq3 == 1 |
+  merged_Dataset_wave1_and_3_and_5$w1hq6 == 1 |
+  merged_Dataset_wave1_and_3_and_5$w1hq11 ==1,
+  1, 0
 )
 ```
 
 ```{r}
-country_summary=healthy_wave1 %>%
-  group_by(cntry) %>%
+country_summary=merged_Dataset_wave1_and_3_and_5|>
+  group_by(cntry)|>
   summarise(
     total_people = n(),
     people_needed = sum(needed_any, na.rm = TRUE),
@@ -293,8 +271,8 @@ country_summary=healthy_wave1 %>%
 ```
 
 ```{r}
-ggplot(country_summary, aes(x = reorder(cntry, -proportion), 
-                            y = proportion)) +
+ggplot(country_summary, aes(x = reorder(cntry, -people_needed), 
+                            y = people_needed)) +
   geom_bar(stat = "identity") +
   labs(
     title = "amount of People Needing Healthcare by Country",
@@ -316,21 +294,19 @@ IS	Iceland
 PL	Poland
 PT	Portugal
 SI	Slovenia
-note there is UK
-
 
 ```{r}
-country_summary=healthy_wave1 %>%
-  group_by(cntry) %>%
+country_summary=merged_Dataset_wave1_and_3_and_5|>
+  group_by(cntry)|>
   summarise(
     people_needed = sum(needed_any, na.rm = TRUE),
-  ) %>%
+  )|>
   arrange(desc(people_needed))
 
 country_summary
 ```
 ```{r}
-healthy_wave1 |>
+merged_Dataset_wave1_and_3_and_5 |>
   summarise(
     GP=sum(w1hq1==1,na.rm=TRUE),
     Specialist=sum(w1hq3==1,na.rm = TRUE),
@@ -354,7 +330,6 @@ healthy_wave1 |>
   diagnostic_test_req = "Diagnostic Test"
 ))
 ```
-
 ```{r}
 healthy_wave1|>
   filter(cntry=="GB")|>
@@ -408,7 +383,7 @@ healthy_wave1|>
 ))
 ```
 ```{r}
-healthy_wave1|>
+merged_Dataset_wave1_and_3_and_5|>
   filter(cntry=="BE")|>
   summarise(
     GP=sum(w1hq1==1,na.rm=TRUE),
@@ -433,107 +408,8 @@ healthy_wave1|>
   diagnostic_test_req = "Diagnostic Test"
 ))
 ```
-there are are a total 
-going to see how to handle duplicate values based on 
-checking id-25213 
-in healthy_wave1 25213 id has two entries with countries as CZ and FI 
-trying to see how the ids are filled realized that for every country that a given range of values to assigned 
-so as to create unique values we will be merging cntry and idno to create new value which will be the new primary key for filtering 
-
-solving duplicates by merging the cntry and idno column 
-checking with healthwave_1 dataset 
-
-```{r}
-primary_health_wave1=healthy_wave1|>
-  mutate(new_id = paste(cntry, idno, sep = "_"))
-sum(duplicated(primary_health_wave1$new_id))
-```
-on merging a column country and idno to create a new unque id there still exist duplicates but has got reduced 1431 to 21 
-
-```{r}
-primary_health_wave1=healthy_wave1|>
-  mutate(new_id = paste(cntry,idno,age, sep = "_"))
-sum(duplicated(primary_health_wave1$new_id))
-```
-```{r}
-primary_health_wave5=healthy_wave5|>
-  mutate(new_id = paste(cntry,idno,age, sep = "_"))
-sum(duplicated(primary_health_wave5$new_id))
-```
-```{r}
-primary_health_wave3=healthy_wave3|>
-  mutate(new_id = paste(cntry,idno,age, sep = "_"))
-sum(duplicated(primary_health_wave3$new_id))
-```
-on merging with with three columns which is age,idno and country wee were able to remove the duplicates 
-now why did we choose these three columns because these three columns were common between all datasets 
-
-```{r}
-length(primary_health_wave1$new_id[
-  which(primary_health_wave1$w1hq6 == 1|
-        primary_health_wave1$w1hq3 == 1|
-        primary_health_wave1$w1hq1 == 1|
-        primary_health_wave1$w1hq11==1)
-])
-```
-OK before merging data sets there is a total of 1048 useful observation 
-
-```{r}
-varible_analysis_heath_wave1=primary_health_wave1 |>
-  filter(as.numeric(w1hq6) == 1|
-           as.numeric(w1hq3)==1|
-           as.numeric(w1hq1)==1|
-           as.numeric(w1hq11)==1)|>
-  select(new_id,age,cntry,w1hq5)
-
-varible_analysis_heath_wave1|>
-  count(w1hq5,drop=FALSE)
-```
-(w1hq5)   Wait time for medical specialist appointment
-Less than one month-1
-One to two months-2
-Three to five months-3
-Six to eight months-4
-Nine months to one year-5
-More than a year-6
-I don’t know-7
-
-from this we can say that there is a lot of 845 na values out of 1048 rows in the dataset (need to discuss with ma'am)
 
 
-
-columns being selected 
-healthy_wave3     (w3hq77)  Currently in paid work
-""                (w3hq57)  Subjective mental health in general
-""                (w3hq58)  Subjective physical health in general
-""                (w3hq87)  How difficult to take an hour off for personal/family matters during work
-
-```{r}
-merged_Dataset_wave1_and_3=varible_analysis_heath_wave1|>
-  inner_join(
-    primary_health_wave3|>
-      select(new_id,w3hq77,w3hq57,w3hq58,w3hq87),
-    by="new_id"
-  )
-merged_Dataset_wave1_and_3
-```
-columns being merged 
-healthy_wave5     (w5hq18)  Healthcare costs covered by system
-""                (w5hq11)  Receive help and support from close contacts when needed
-""                (w5hq8)   Severe financial difficulties in family during first 18 years of life, how often
-""                (w5hq17)  Out-of-pocket cost for most recent private mental health consultation
-""                (w5hq12)  Felt lonely, how much of the time past week
-
-```{r}
-merged_Dataset_wave1_and_3_and_5=merged_Dataset_wave1_and_3|>
-  inner_join(
-    primary_health_wave5|>
-      select(new_id,w5hq18,w5hq11,w5hq8,w5hq17,w5hq12),
-    by="new_id"
-  )
-merged_Dataset_wave1_and_3_and_5
-```
-on merging the dataset based we have only 803 rows out of the original 1048 rows
 
 
 
