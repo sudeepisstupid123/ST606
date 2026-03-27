@@ -281,26 +281,29 @@ max(primary_health_wave$mentalH_scale,na.rm = T)
 
 
 ```{r}
-primary_health_wave$mentalH_scale=factor(primary_health_wave$w3hq57,levels = c(1, 2, 3, 4,5),labels = c("Very good","Good","Fair","Bad","Very bad"),ordered = TRUE)
-primary_health_wave$physicalH_scale=factor(primary_health_wave$w3hq58,levels = c(1, 2, 3, 4,5),labels = c("Very good","Good","Fair","Bad","Very bad" ),ordered = TRUE)
+primary_health_wave$mental_state=factor(primary_health_wave$w3hq57,levels = c(1, 2, 3, 4,5),labels = c("Very good","Good","Fair","Bad","Very bad"),ordered = TRUE)
+primary_health_wave$physical_state=factor(primary_health_wave$w3hq58,levels = c(1, 2, 3, 4,5),labels = c("Very good","Good","Fair","Bad","Very bad" ),ordered = TRUE)
+
+
 df_yes=primary_health_wave[primary_health_wave$needed_any == 1, ]
 df_no=primary_health_wave[primary_health_wave$needed_any == 0, ]
 ```
 
 
 ```{r}
-plot_likert(df_yes[,c("mentalH_scale", "physicalH_scale")],
+plot_likert(df_yes[,c("mental_state", "physical_state")],
 grid.range = c(1.2, 1.4),
 expand.grid = FALSE,
 values = "sum.outside",
- show.prc.sign = TRUE)
+show.prc.sign = TRUE,geom.colors = "RdBu")+xlab("")
 ```
 
 ```{r}
-plot_likert(df_no[,c("mentalH_scale", "physicalH_scale")],
+plot_likert(df_no[,c("mental_state", "physical_state")],
 grid.range = c(1.2, 1.4),
 expand.grid = FALSE,
 values = "sum.outside",
+geom.colors = "RdBu",
  show.prc.sign = TRUE)
 ```
 
