@@ -18,6 +18,7 @@ library(sjlabelled)
 library(ggplot2)
 library(dplyr)
 library(sjPlot)
+library(naniar)
 ```
 
 loading all the waves data
@@ -85,12 +86,10 @@ handling duplicate values
 ```{r}
 
 healthy_wave$needed_any=ifelse(
-  healthy_wave$w1hq1 == 1 |
-  healthy_wave$w1hq3 == 1 |
-  healthy_wave$w1hq6 == 1 |
-  healthy_wave$w1hq11 ==1,
+  rowSums(primary_health_wave[, c("w1hq1", "w1hq3", "w1hq6", "w1hq11")] == 1, na.rm = TRUE) > 0,
   1, 0
 )
+
 ```
 there are are a total 
 going to see how to handle duplicate values based on 
@@ -266,17 +265,10 @@ dataset            predicotr variable
 healthy_wave3     
 ""                (w3hq57)  Subjective mental health in general
 ""                (w3hq58)  Subjective physical health in general
-""                (w3hq87)  How difficult to take an hour off for personal/family matters during work
-
-healthy_wave5     (w5hq18)  Healthcare costs covered by system
-""                (w5hq11)  Receive help and support from close contacts when needed
-""                (w5hq8)   Severe financial difficulties in family during first 18 years of life, how often
 ""                (w5hq12)  Felt lonely, how much of the time past week
 
 first making a likert scale on merged_datset having only poeple with unmet halth care 
-```{r}
-max(primary_health_wave$mentalH_scale,na.rm = T)
-```
+
 
 
 
@@ -285,8 +277,8 @@ primary_health_wave$mental_state=factor(primary_health_wave$w3hq57,levels = c(1,
 primary_health_wave$physical_state=factor(primary_health_wave$w3hq58,levels = c(1, 2, 3, 4,5),labels = c("Very good","Good","Fair","Bad","Very bad" ),ordered = TRUE)
 
 
-df_yes=primary_health_wave[primary_health_wave$needed_any == 1, ]
-df_no=primary_health_wave[primary_health_wave$needed_any == 0, ]
+df_yes=primary_health_wave[primary_health_wave$needed_any== 1, ]
+df_no=primary_health_wave[primary_health_wave$needed_any==0, ]
 ```
 
 
@@ -295,7 +287,7 @@ plot_likert(df_yes[,c("mental_state", "physical_state")],
 grid.range = c(1.2, 1.4),
 expand.grid = FALSE,
 values = "sum.outside",
-show.prc.sign = TRUE,geom.colors = "RdBu")+xlab("")
+show.prc.sign = TRUE,geom.colors = "RdBu")
 ```
 
 ```{r}
@@ -306,12 +298,26 @@ values = "sum.outside",
 geom.colors = "RdBu",
  show.prc.sign = TRUE)
 ```
+missing data analysis on 
+(w3hq87)  How difficult to take an hour off for personal/family matters during work
+(w5hq18)  Healthcare costs covered by system
+(w5hq11)  Receive help and support from close contacts when needed
+(w5hq8)   Severe financial difficulties in family during first 18 years of life, how often
+```{r}
+miss_var_summary(df_yes[, c("w3hq87", "w5hq18","w5hq11","w5hq8")])
+```
+the largest percentage of missing data is in column  w3hq87 of 55%  and the rest shows 20% missing data this is for only people who have not revived health care 
 
 
-
-
-
-
+```{r}
+gg_miss_upset(df_yes[, c("w3hq87", "w5hq18","w5hq11","w5hq8")])
+```
+```{r}
+gg_miss_upset(df_no[, c("w3hq87", "w5hq18","w5hq11","w5hq8")])
+```
+```{r}
+gg_miss_case(df_yes)
+```
 
 
 
