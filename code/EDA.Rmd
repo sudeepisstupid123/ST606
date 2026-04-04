@@ -258,6 +258,9 @@ miss_var_summary(csv[, c("w3hq87", "w5hq18","w5hq11","w5hq8","w5hq17","w5hq12")]
 
 
 
+```{r}
+miss_var_summary(healthy_wave[, c("w3hq87", "w5hq18","w5hq11","w5hq8","w5hq17","w5hq12")])
+```
 
 
 
