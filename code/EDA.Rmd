@@ -298,7 +298,43 @@ model_age <- glm(needed_any ~ age+gndr,
 
 summary(model_age)
 ```
+```{r}
+model_age <- glm(needed_any ~ age+gndr+w5hq12,
+                 data = primary_health_wave,
+                 family = binomial)
 
+summary(model_age)
+```
+
+```{r}
+model_age <- glm(needed_any ~ age+gndr+w5hq12+w3hq58+w3hq57,
+                 data = primary_health_wave,
+                 family = binomial)
+
+summary(model_age)
+```
+```{r}
+model_age <- glm(needed_any ~ age+gndr+w5hq12+w3hq58+w3hq57+w5hq11,
+                 data = primary_health_wave,
+                 family = binomial)
+
+summary(model_age)
+```
+```{r}
+model_age <- glm(needed_any ~ age+gndr+w5hq12+w3hq58+w3hq57+w5hq11+cntry,
+                 data = primary_health_wave,
+                 family = binomial)
+
+summary(model_age)
+```
+
+```{r}
+model_age <- glm(needed_any ~ age+gndr+w5hq12+w3hq58+w3hq57+w5hq11+cntry+w5hq8,
+                 data = primary_health_wave,
+                 family = binomial)
+
+summary(model_age)
+```
 
 
 
