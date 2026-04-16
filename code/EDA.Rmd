@@ -83,7 +83,8 @@ primary_health_wave|>
   filter(duplicated(new_id) | duplicated(new_id,fromLast=TRUE)) |>
   arrange(new_id)|>
   select(cntry, new_id,age,gndr)|>
-  haven::as_factor() |>
+  haven::as_factor()|>
+  slice_head(n=12)|>
   tt()
 ```
 from this we can say that none of them are the same person as there huge again difference gap of more  than one year 
@@ -95,7 +96,7 @@ primary_health_wave=primary_health_wave|>
   mutate(new_id=paste(cntry,idno,age, sep="_"))
 sum(duplicated(primary_health_wave$new_id))
 ```
-on merging with with three columns which is  age ,idno and cntry we were able to remove the duplicates so now we can use this column as a primary key for identifying an individual 
+
 
 
 ## Model parametrs at intial phase
@@ -163,10 +164,18 @@ country_summary
 ```
 
 ```{r}
-primary_health_wave$needed_any <- factor(
+primary_health_wave$needed_any=factor(
   primary_health_wave$needed_any,
   levels = c(0, 1),
-  labels = c("Met Medical Care", "Unmet Health Care Need")
+  labels = c("Met Health Care", "Unmet Health Care")
+)
+```
+
+```{r}
+primary_health_wave$gndr=factor(
+  primary_health_wave$gndr,
+  levels = c(1, 2),
+  labels = c("Male", "Female")
 )
 ```
 
@@ -186,12 +195,14 @@ ggplot(primary_health_wave)+
     axis.ticks.y = element_blank()
   )
 ```
+
+
 The mosaic plot suggests that, across all countries, most respondents reported having their medical care needs met. However, the proportion of unmet health care need varies by country, with relatively higher shares observed in countries such as **GB(United Kingdom)**, **PL(Poland)**, **PT(Portugal)**, and **FI(Finland)**. This indicates potential cross-country differences in access to or delivery of medical care services.
 ```{r}
 country_summary1=primary_health_wave|>
   group_by(cntry)|>
   summarise(
-    people_needed=sum(needed_any == "Unmet Health Care Need", na.rm = TRUE),
+    people_needed=sum(needed_any == "Unmet Health Care", na.rm = TRUE),
   )|>
   arrange(desc(people_needed))|>
   haven::as_factor() |>
@@ -221,6 +232,10 @@ ggplot(service_country,aes(x=reorder(cntry,-Count),y=Count,fill=Service))+
   theme_minimal()+
   theme(axis.text.x=element_text(angle=45,hjust=1))
 ```
+
+
+
+
 ## Variable Analysis thorugh likert charts 
 | Variable | Description |
 |----------|-------------|
@@ -246,7 +261,7 @@ tt(label_summary)
 ```
 
 
-these are the labels provided for each variable so putting appropriately the factors for each labels 
+The labels Very Positive, Positive, Decent, Negative, and Very Negative were chosen to create a consistent ordinal framework across the three well being variables: `loneliness`, `subjective mental health`, and `subjective physical health`. Although the original survey items use slightly different response wording (for example, frequency-based responses for loneliness and quality-based responses for health status), recoding them into a common directional scale improves the comparability and interpret ability of the Likert chart.
 
 ```{r}
 primary_health_wave$lonely=factor(primary_health_wave$w5hq12,levels = c(1, 2, 3, 4),labels = c("Very Positive","Positive","Decent","Negative" ),ordered = TRUE)
@@ -254,8 +269,8 @@ primary_health_wave$lonely=factor(primary_health_wave$w5hq12,levels = c(1, 2, 3,
 primary_health_wave$mental_state=factor(primary_health_wave$w3hq57,levels = c(1, 2, 3, 4,5),labels = c("Very Positive","Positive","Decent","Negative","Very Negative"),ordered = TRUE)
 primary_health_wave$physical_state=factor(primary_health_wave$w3hq58,levels = c(1, 2, 3, 4,5),labels = c("Very Positive","Positive","Decent","Negative","Very Negative"),ordered = TRUE)
 
-df_yes=primary_health_wave[primary_health_wave$needed_any== "Unmet Health Care Need", ]
-df_no=primary_health_wave[primary_health_wave$needed_any=="Met Medical Care", ]
+df_yes=primary_health_wave[primary_health_wave$needed_any== "Unmet Health Care", ]
+df_no=primary_health_wave[primary_health_wave$needed_any=="Met Health Care", ]
 ```
 
 
@@ -287,11 +302,12 @@ From this we can say that mental state of people who did receive medical care th
 | w5hq8 | Severe financial difficulties in family during first 18 years of life, how often |
 | w5hq17 | Out-of-pocket cost for most recent private mental health consultation |
 | w5hq12 | Felt lonely, how much of the time past week |
+| w3hq77 | Currently in paid work |
 
 
 ```{r}
 missing_raw=miss_var_summary(
-  df_yes[, c("w3hq87", "w5hq18", "w5hq11", "w5hq8", "w5hq17", "w5hq12")]
+  df_yes[, c("w3hq87", "w5hq18", "w5hq11", "w5hq8", "w5hq17", "w5hq12","w3hq77")]
 )
 missing_table=tibble(
   Variable=c(
@@ -300,7 +316,8 @@ missing_table=tibble(
     "Social support",
     "Childhood financial difficulty",
     "Mental health consultation cost",
-    "Loneliness"
+    "Loneliness",
+    "Currently in paid work"
   ),
   Missing_Count=as.numeric(missing_raw$n_miss),
   Missing_Percentage=as.numeric(missing_raw$pct_miss)
@@ -314,48 +331,24 @@ as they very high missing values so its better to remove them
 
 
 ```{r}
-gg_miss_upset(df_yes[,c("w3hq87", "w5hq18","w5hq11","w5hq8","w5hq17","w5hq12")])
+gg_miss_upset(primary_health_wave[,c("w3hq87", "w5hq18","w5hq11","w5hq8","w5hq17","w5hq12","w3hq77")])
 ```
-removing both those column remove a high chunk of missing values as we can see w5hq17 and a combination of both w3hq87 with w5hq17 have the most missing values 
+
+
+
+removing both those column remove a high chunk of missing values as we can see `w5hq17` and a combination of both `w3hq87` with `w5hq17` have the most missing values 
 
 
 
 ```{r}
-gg_miss_case(primary_health_wave[,c("w3hq87", "w5hq18","w5hq11","w5hq8","w5hq17","w5hq12")])
+gg_miss_case(primary_health_wave[,c("w3hq87", "w5hq18","w5hq11","w5hq8","w5hq17","w5hq12","w3hq77")])
 ```
-this was the case when when we counted all the columns 
-
+comparing the miss cases on removing the two columns 
 ```{r}
-gg_miss_case(primary_health_wave[,c( "w5hq18","w5hq11","w5hq8","w5hq12")])
+gg_miss_case(primary_health_wave[,c( "w5hq18","w5hq11","w5hq8","w5hq12","w3hq77")])
 ```
 
 
-
-
-
-checking for nan values in the dataset
-loading the csv file 
-```{r}
-csv=read_csv(here("data","CRONOS3 Theme - Make it Healthy.csv"))
-miss_var_summary(csv[, c("w3hq87", "w5hq18","w5hq11","w5hq8","w5hq17","w5hq12")])
-```
-
-
-
-
-```{r}
-miss_var_summary(healthy_wave[, c("w3hq87", "w5hq18","w5hq11","w5hq8","w5hq17","w5hq12")])
-```
-
-
-```{r}
-library(foreign)
-
-df =read.spss(here("data","CRONOS3 Theme - Make it Healthy.sav"),to.data.frame = TRUE)
-miss_var_summary(df[,c("w3hq87", "w5hq18","w5hq11","w5hq8","w5hq17","w5hq12")])
-
-
-```
 
 ```{r}
 ggplot(primary_health_wave,aes(x=factor(needed_any),y=age,fill=factor(gndr)))+
@@ -367,56 +360,67 @@ ggplot(primary_health_wave,aes(x=factor(needed_any),y=age,fill=factor(gndr)))+
   scale_fill_manual(name="Gender",
     labels=c("Male", "Female","No answer"),
     values=c("blue","pink","black")
-  )
-```
-```{r}
-model_age <- glm(needed_any ~ age,
-                 data = primary_health_wave,
-                 family = binomial)
-
-summary(model_age)
-```
-```{r}
-model_age <- glm(needed_any ~ age+gndr,
-                 data = primary_health_wave,
-                 family = binomial)
-
-summary(model_age)
-```
-```{r}
-model_age <- glm(needed_any ~ age+gndr+w5hq12,
-                 data = primary_health_wave,
-                 family = binomial)
-
-summary(model_age)
+  )+facet_wrap(vars(cntry))
 ```
 
 ```{r}
-model_age <- glm(needed_any ~ age+gndr+w5hq12+w3hq58+w3hq57,
-                 data = primary_health_wave,
-                 family = binomial)
-
-summary(model_age)
+primary_health_wave |>
+  filter(!is.na(gndr))|>
+  group_by(cntry, needed_any, gndr)|>
+  summarise(
+    n = n(),
+    median_age = median(age, na.rm = TRUE),
+    age_range = paste(
+      quantile(age, 0.25, na.rm = TRUE),
+      " - ",
+      quantile(age, 0.75, na.rm = TRUE)
+    ),.groups = "drop")|>
+  haven::as_factor() |>
+  tt()
 ```
-```{r}
-model_age <- glm(needed_any ~ age+gndr+w5hq12+w3hq58+w3hq57+w5hq11,
-                 data = primary_health_wave,
-                 family = binomial)
+Across most countries, the median ages for respondents with met and unmet healthcare needs are broadly similar, though some notable differences emerge.
 
-summary(model_age)
-```
-```{r}
-model_age <- glm(needed_any ~ age+gndr+w5hq12+w3hq58+w3hq57+w5hq11+cntry,
-                 data = primary_health_wave,
-                 family = binomial)
+- **Ireland:** unmet males = 59.5, met males = 57  
+- **Austria:** unmet females = 56.5, met females = 53  
+- **Poland:** unmet females = 49.5, met females = 45  
 
-summary(model_age)
-```
+This suggests that in some countries, those reporting unmet healthcare needs tend to be slightly older. However, this is not universal.
+
+- **Iceland:** unmet females = 42 vs met females = 54  
+- **Slovenia:** unmet males = 40 vs met males = 52  
+
+Across nearly all countries, female respondents generally have slightly lower median ages than males within the same healthcare need group. This pattern is visible in both the boxplot medians and the table.
+
+The interquartile ranges (`age_range`) show that age dispersion differs across countries.
+
+- **Austria** females unmet: 36–73.25 — wide spread  
+- **Poland** females unmet: 36.5–68.25 — wide spread  
+- **Iceland** females unmet: 31–52 — much narrower
+
+$$
+\begin{aligned}
+\log \left(
+\frac{P(\text{Unmet Health Care Need})}
+{1 - P(\text{Unmet Health Care Need})}
+\right)
+&= \beta_0 + \beta_1(\text{Age}) + \beta_2(\text{Gender}) + \beta_3(\text{Country}) \\
+&\quad + \beta_4(\text{Subjective Mental Health}) + \beta_5(\text{Subjective Physical Health}) \\
+&\quad + \beta_6(\text{Loneliness}) + \beta_7(\text{Social Support}) \\
+&\quad + \beta_8(\text{Currently in Paid Work}) \\
+&\quad + \beta_9(\text{Early-Life Financial Difficulty}) \\
+&\quad + \beta_{10}(\text{Healthcare Costs Covered})
+\end{aligned}
+$$
+
+
 
 ```{r}
-model_age <- glm(needed_any ~ age+gndr+w5hq12+w3hq58+w3hq57+w5hq11+cntry+w5hq8,
-                 data = primary_health_wave,
-                 family = binomial)
+model_age=glm(
+  needed_any ~ age + gndr + cntry +
+    w3hq57 + w3hq58 +w5hq12 + w5hq11 +w3hq77+w5hq8 + w5hq18 ,
+  family = binomial,
+  data = primary_health_wave
+)
 
 summary(model_age)
 ```
