@@ -443,7 +443,8 @@ display: none;
 </div>
 
 
-<pre class="r"><code>library(tidyverse)
+<pre class="r"><code>library(lme4)
+library(tidyverse)
 library(here)
 library(haven)
 library(labelled)
@@ -720,19 +721,19 @@ function tinytable_rank_sorter(a, b, aRow, bRow, column, dir, sorterParams) {
 
     <script>
       // Create table-specific functions using external factory
-      const tableFns_ekhfj7c2607qds5h7tz1 = TinyTable.createTableFunctions("tinytable_ekhfj7c2607qds5h7tz1");
+      const tableFns_ectgfews2x7nv64cal8a = TinyTable.createTableFunctions("tinytable_ectgfews2x7nv64cal8a");
       // tinytable span after
       window.addEventListener('load', function () {
           var cellsToStyle = [
             // tinytable style arrays after
-          { positions: [ { i: '2', j: 1 }, { i: '2', j: 2 }, { i: '2', j: 3 } ], css_id: 'tinytable_css_ptg7co1b7j8unmm78ewg',}, 
-          { positions: [ { i: '0', j: 1 }, { i: '0', j: 2 }, { i: '0', j: 3 } ], css_id: 'tinytable_css_alge8nidqut8gjqnroi4',}, 
+          { positions: [ { i: '2', j: 1 }, { i: '2', j: 2 }, { i: '2', j: 3 } ], css_id: 'tinytable_css_jbeusckom39hze38zckj',}, 
+          { positions: [ { i: '0', j: 1 }, { i: '0', j: 2 }, { i: '0', j: 3 } ], css_id: 'tinytable_css_22kcmqrdxn9va0n318sy',}, 
           ];
 
           // Loop over the arrays to style the cells
           cellsToStyle.forEach(function (group) {
               group.positions.forEach(function (cell) {
-                  tableFns_ekhfj7c2607qds5h7tz1.styleCell(cell.i, cell.j, group.css_id);
+                  tableFns_ectgfews2x7nv64cal8a.styleCell(cell.i, cell.j, group.css_id);
               });
           });
       });
@@ -935,11 +936,11 @@ line-height: var(--tt-line-height-footnote-tight);
 </style>
     <style>
 
-#tinytable_ekhfj7c2607qds5h7tz1 td.tinytable_css_ptg7co1b7j8unmm78ewg, #tinytable_ekhfj7c2607qds5h7tz1 th.tinytable_css_ptg7co1b7j8unmm78ewg { position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.08em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; }
-#tinytable_ekhfj7c2607qds5h7tz1 td.tinytable_css_alge8nidqut8gjqnroi4, #tinytable_ekhfj7c2607qds5h7tz1 th.tinytable_css_alge8nidqut8gjqnroi4 { position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.08em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; }
+#tinytable_ectgfews2x7nv64cal8a td.tinytable_css_jbeusckom39hze38zckj, #tinytable_ectgfews2x7nv64cal8a th.tinytable_css_jbeusckom39hze38zckj { position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.08em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; }
+#tinytable_ectgfews2x7nv64cal8a td.tinytable_css_22kcmqrdxn9va0n318sy, #tinytable_ectgfews2x7nv64cal8a th.tinytable_css_22kcmqrdxn9va0n318sy { position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.08em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; }
 </style>
     <div class="container">
-      <table class="tinytable" id="tinytable_ekhfj7c2607qds5h7tz1" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
+      <table class="tinytable" id="tinytable_ectgfews2x7nv64cal8a" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
         
         <thead>
               <tr>
@@ -1229,19 +1230,19 @@ function tinytable_rank_sorter(a, b, aRow, bRow, column, dir, sorterParams) {
 
     <script>
       // Create table-specific functions using external factory
-      const tableFns_zd2d7g3eoxpjomw2g8hq = TinyTable.createTableFunctions("tinytable_zd2d7g3eoxpjomw2g8hq");
+      const tableFns_vst0smnpv66yy0tkmz76 = TinyTable.createTableFunctions("tinytable_vst0smnpv66yy0tkmz76");
       // tinytable span after
       window.addEventListener('load', function () {
           var cellsToStyle = [
             // tinytable style arrays after
-          { positions: [ { i: '12', j: 1 }, { i: '12', j: 2 }, { i: '12', j: 3 }, { i: '12', j: 4 } ], css_id: 'tinytable_css_67en4ynn3mvi8n363m8p',}, 
-          { positions: [ { i: '0', j: 1 }, { i: '0', j: 2 }, { i: '0', j: 3 }, { i: '0', j: 4 } ], css_id: 'tinytable_css_pmvmho1bhp2vmcl3gch2',}, 
+          { positions: [ { i: '12', j: 1 }, { i: '12', j: 2 }, { i: '12', j: 3 }, { i: '12', j: 4 } ], css_id: 'tinytable_css_9hc7n5hmd38qmg5qw7m7',}, 
+          { positions: [ { i: '0', j: 1 }, { i: '0', j: 2 }, { i: '0', j: 3 }, { i: '0', j: 4 } ], css_id: 'tinytable_css_vn8dslr1ililypgiwftn',}, 
           ];
 
           // Loop over the arrays to style the cells
           cellsToStyle.forEach(function (group) {
               group.positions.forEach(function (cell) {
-                  tableFns_zd2d7g3eoxpjomw2g8hq.styleCell(cell.i, cell.j, group.css_id);
+                  tableFns_vst0smnpv66yy0tkmz76.styleCell(cell.i, cell.j, group.css_id);
               });
           });
       });
@@ -1444,11 +1445,11 @@ line-height: var(--tt-line-height-footnote-tight);
 </style>
     <style>
 
-#tinytable_zd2d7g3eoxpjomw2g8hq td.tinytable_css_67en4ynn3mvi8n363m8p, #tinytable_zd2d7g3eoxpjomw2g8hq th.tinytable_css_67en4ynn3mvi8n363m8p { position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.08em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; }
-#tinytable_zd2d7g3eoxpjomw2g8hq td.tinytable_css_pmvmho1bhp2vmcl3gch2, #tinytable_zd2d7g3eoxpjomw2g8hq th.tinytable_css_pmvmho1bhp2vmcl3gch2 { position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.08em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; }
+#tinytable_vst0smnpv66yy0tkmz76 td.tinytable_css_9hc7n5hmd38qmg5qw7m7, #tinytable_vst0smnpv66yy0tkmz76 th.tinytable_css_9hc7n5hmd38qmg5qw7m7 { position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.08em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; }
+#tinytable_vst0smnpv66yy0tkmz76 td.tinytable_css_vn8dslr1ililypgiwftn, #tinytable_vst0smnpv66yy0tkmz76 th.tinytable_css_vn8dslr1ililypgiwftn { position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.08em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; }
 </style>
     <div class="container">
-      <table class="tinytable" id="tinytable_zd2d7g3eoxpjomw2g8hq" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
+      <table class="tinytable" id="tinytable_vst0smnpv66yy0tkmz76" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
         
         <thead>
               <tr>
@@ -1929,19 +1930,19 @@ function tinytable_rank_sorter(a, b, aRow, bRow, column, dir, sorterParams) {
 
     <script>
       // Create table-specific functions using external factory
-      const tableFns_bn3oazo9t3q17yk2fomq = TinyTable.createTableFunctions("tinytable_bn3oazo9t3q17yk2fomq");
+      const tableFns_545vbaral93zrq3rte6a = TinyTable.createTableFunctions("tinytable_545vbaral93zrq3rte6a");
       // tinytable span after
       window.addEventListener('load', function () {
           var cellsToStyle = [
             // tinytable style arrays after
-          { positions: [ { i: '11', j: 1 }, { i: '11', j: 2 }, { i: '11', j: 3 }, { i: '11', j: 4 } ], css_id: 'tinytable_css_k0z7gsp5dehj41gjfj1a',}, 
-          { positions: [ { i: '0', j: 1 }, { i: '0', j: 2 }, { i: '0', j: 3 }, { i: '0', j: 4 } ], css_id: 'tinytable_css_d85e5ea9f1jos7ozndgm',}, 
+          { positions: [ { i: '11', j: 1 }, { i: '11', j: 2 }, { i: '11', j: 3 }, { i: '11', j: 4 } ], css_id: 'tinytable_css_3c93ya6k6q36hfexlwo4',}, 
+          { positions: [ { i: '0', j: 1 }, { i: '0', j: 2 }, { i: '0', j: 3 }, { i: '0', j: 4 } ], css_id: 'tinytable_css_wjwndnn50kjnvs6iq6kx',}, 
           ];
 
           // Loop over the arrays to style the cells
           cellsToStyle.forEach(function (group) {
               group.positions.forEach(function (cell) {
-                  tableFns_bn3oazo9t3q17yk2fomq.styleCell(cell.i, cell.j, group.css_id);
+                  tableFns_545vbaral93zrq3rte6a.styleCell(cell.i, cell.j, group.css_id);
               });
           });
       });
@@ -2144,11 +2145,11 @@ line-height: var(--tt-line-height-footnote-tight);
 </style>
     <style>
 
-#tinytable_bn3oazo9t3q17yk2fomq td.tinytable_css_k0z7gsp5dehj41gjfj1a, #tinytable_bn3oazo9t3q17yk2fomq th.tinytable_css_k0z7gsp5dehj41gjfj1a { position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.08em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; }
-#tinytable_bn3oazo9t3q17yk2fomq td.tinytable_css_d85e5ea9f1jos7ozndgm, #tinytable_bn3oazo9t3q17yk2fomq th.tinytable_css_d85e5ea9f1jos7ozndgm { position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.08em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; }
+#tinytable_545vbaral93zrq3rte6a td.tinytable_css_3c93ya6k6q36hfexlwo4, #tinytable_545vbaral93zrq3rte6a th.tinytable_css_3c93ya6k6q36hfexlwo4 { position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.08em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; }
+#tinytable_545vbaral93zrq3rte6a td.tinytable_css_wjwndnn50kjnvs6iq6kx, #tinytable_545vbaral93zrq3rte6a th.tinytable_css_wjwndnn50kjnvs6iq6kx { position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.08em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; }
 </style>
     <div class="container">
-      <table class="tinytable" id="tinytable_bn3oazo9t3q17yk2fomq" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
+      <table class="tinytable" id="tinytable_545vbaral93zrq3rte6a" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
         
         <thead>
               <tr>
@@ -2503,19 +2504,19 @@ function tinytable_rank_sorter(a, b, aRow, bRow, column, dir, sorterParams) {
 
     <script>
       // Create table-specific functions using external factory
-      const tableFns_y4hunnq4rlpt0yc8f8zl = TinyTable.createTableFunctions("tinytable_y4hunnq4rlpt0yc8f8zl");
+      const tableFns_23riq0pco1xksu320w9v = TinyTable.createTableFunctions("tinytable_23riq0pco1xksu320w9v");
       // tinytable span after
       window.addEventListener('load', function () {
           var cellsToStyle = [
             // tinytable style arrays after
-          { positions: [ { i: '11', j: 1 }, { i: '11', j: 2 } ], css_id: 'tinytable_css_3l7n8byhbodgbihldqza',}, 
-          { positions: [ { i: '0', j: 1 }, { i: '0', j: 2 } ], css_id: 'tinytable_css_bz2k3dadvrpx6cs5lmy4',}, 
+          { positions: [ { i: '11', j: 1 }, { i: '11', j: 2 } ], css_id: 'tinytable_css_u4mvs0xmnu4lpkz6r6bt',}, 
+          { positions: [ { i: '0', j: 1 }, { i: '0', j: 2 } ], css_id: 'tinytable_css_rimxpuqbiv2jlecsdzwh',}, 
           ];
 
           // Loop over the arrays to style the cells
           cellsToStyle.forEach(function (group) {
               group.positions.forEach(function (cell) {
-                  tableFns_y4hunnq4rlpt0yc8f8zl.styleCell(cell.i, cell.j, group.css_id);
+                  tableFns_23riq0pco1xksu320w9v.styleCell(cell.i, cell.j, group.css_id);
               });
           });
       });
@@ -2718,11 +2719,11 @@ line-height: var(--tt-line-height-footnote-tight);
 </style>
     <style>
 
-#tinytable_y4hunnq4rlpt0yc8f8zl td.tinytable_css_3l7n8byhbodgbihldqza, #tinytable_y4hunnq4rlpt0yc8f8zl th.tinytable_css_3l7n8byhbodgbihldqza { position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.08em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; }
-#tinytable_y4hunnq4rlpt0yc8f8zl td.tinytable_css_bz2k3dadvrpx6cs5lmy4, #tinytable_y4hunnq4rlpt0yc8f8zl th.tinytable_css_bz2k3dadvrpx6cs5lmy4 { position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.08em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; }
+#tinytable_23riq0pco1xksu320w9v td.tinytable_css_u4mvs0xmnu4lpkz6r6bt, #tinytable_23riq0pco1xksu320w9v th.tinytable_css_u4mvs0xmnu4lpkz6r6bt { position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.08em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; }
+#tinytable_23riq0pco1xksu320w9v td.tinytable_css_rimxpuqbiv2jlecsdzwh, #tinytable_23riq0pco1xksu320w9v th.tinytable_css_rimxpuqbiv2jlecsdzwh { position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.08em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; }
 </style>
     <div class="container">
-      <table class="tinytable" id="tinytable_y4hunnq4rlpt0yc8f8zl" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
+      <table class="tinytable" id="tinytable_23riq0pco1xksu320w9v" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
         
         <thead>
               <tr>
@@ -3078,19 +3079,19 @@ function tinytable_rank_sorter(a, b, aRow, bRow, column, dir, sorterParams) {
 
     <script>
       // Create table-specific functions using external factory
-      const tableFns_p87gy321c9hbhgkcchi7 = TinyTable.createTableFunctions("tinytable_p87gy321c9hbhgkcchi7");
+      const tableFns_nuhnzaton8pu7mav6sbu = TinyTable.createTableFunctions("tinytable_nuhnzaton8pu7mav6sbu");
       // tinytable span after
       window.addEventListener('load', function () {
           var cellsToStyle = [
             // tinytable style arrays after
-          { positions: [ { i: '3', j: 1 }, { i: '3', j: 2 } ], css_id: 'tinytable_css_o86mom8jx4mlnnjlasbi',}, 
-          { positions: [ { i: '0', j: 1 }, { i: '0', j: 2 } ], css_id: 'tinytable_css_igy2mtauc7p81qg6uuup',}, 
+          { positions: [ { i: '3', j: 1 }, { i: '3', j: 2 } ], css_id: 'tinytable_css_vfkb1c91x6a1z4gt1br8',}, 
+          { positions: [ { i: '0', j: 1 }, { i: '0', j: 2 } ], css_id: 'tinytable_css_vi8l9ltg3brhm5an2daz',}, 
           ];
 
           // Loop over the arrays to style the cells
           cellsToStyle.forEach(function (group) {
               group.positions.forEach(function (cell) {
-                  tableFns_p87gy321c9hbhgkcchi7.styleCell(cell.i, cell.j, group.css_id);
+                  tableFns_nuhnzaton8pu7mav6sbu.styleCell(cell.i, cell.j, group.css_id);
               });
           });
       });
@@ -3293,11 +3294,11 @@ line-height: var(--tt-line-height-footnote-tight);
 </style>
     <style>
 
-#tinytable_p87gy321c9hbhgkcchi7 td.tinytable_css_o86mom8jx4mlnnjlasbi, #tinytable_p87gy321c9hbhgkcchi7 th.tinytable_css_o86mom8jx4mlnnjlasbi { position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.08em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; }
-#tinytable_p87gy321c9hbhgkcchi7 td.tinytable_css_igy2mtauc7p81qg6uuup, #tinytable_p87gy321c9hbhgkcchi7 th.tinytable_css_igy2mtauc7p81qg6uuup { position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.08em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; }
+#tinytable_nuhnzaton8pu7mav6sbu td.tinytable_css_vfkb1c91x6a1z4gt1br8, #tinytable_nuhnzaton8pu7mav6sbu th.tinytable_css_vfkb1c91x6a1z4gt1br8 { position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.08em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; }
+#tinytable_nuhnzaton8pu7mav6sbu td.tinytable_css_vi8l9ltg3brhm5an2daz, #tinytable_nuhnzaton8pu7mav6sbu th.tinytable_css_vi8l9ltg3brhm5an2daz { position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.08em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; }
 </style>
     <div class="container">
-      <table class="tinytable" id="tinytable_p87gy321c9hbhgkcchi7" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
+      <table class="tinytable" id="tinytable_nuhnzaton8pu7mav6sbu" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
         
         <thead>
               <tr>
@@ -3660,19 +3661,19 @@ function tinytable_rank_sorter(a, b, aRow, bRow, column, dir, sorterParams) {
 
     <script>
       // Create table-specific functions using external factory
-      const tableFns_imlhpaplo0mcz1v584if = TinyTable.createTableFunctions("tinytable_imlhpaplo0mcz1v584if");
+      const tableFns_nrpg76bkbr64ukes1lpw = TinyTable.createTableFunctions("tinytable_nrpg76bkbr64ukes1lpw");
       // tinytable span after
       window.addEventListener('load', function () {
           var cellsToStyle = [
             // tinytable style arrays after
-          { positions: [ { i: '7', j: 1 }, { i: '7', j: 2 }, { i: '7', j: 3 } ], css_id: 'tinytable_css_pzh318h7z7aneduqqh99',}, 
-          { positions: [ { i: '0', j: 1 }, { i: '0', j: 2 }, { i: '0', j: 3 } ], css_id: 'tinytable_css_pyto1gjpl5hxacw4tv36',}, 
+          { positions: [ { i: '7', j: 1 }, { i: '7', j: 2 }, { i: '7', j: 3 } ], css_id: 'tinytable_css_4q9rqf3sbqd9caghl4vq',}, 
+          { positions: [ { i: '0', j: 1 }, { i: '0', j: 2 }, { i: '0', j: 3 } ], css_id: 'tinytable_css_khubtorcugnll8smw4na',}, 
           ];
 
           // Loop over the arrays to style the cells
           cellsToStyle.forEach(function (group) {
               group.positions.forEach(function (cell) {
-                  tableFns_imlhpaplo0mcz1v584if.styleCell(cell.i, cell.j, group.css_id);
+                  tableFns_nrpg76bkbr64ukes1lpw.styleCell(cell.i, cell.j, group.css_id);
               });
           });
       });
@@ -3875,11 +3876,11 @@ line-height: var(--tt-line-height-footnote-tight);
 </style>
     <style>
 
-#tinytable_imlhpaplo0mcz1v584if td.tinytable_css_pzh318h7z7aneduqqh99, #tinytable_imlhpaplo0mcz1v584if th.tinytable_css_pzh318h7z7aneduqqh99 { position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.08em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; }
-#tinytable_imlhpaplo0mcz1v584if td.tinytable_css_pyto1gjpl5hxacw4tv36, #tinytable_imlhpaplo0mcz1v584if th.tinytable_css_pyto1gjpl5hxacw4tv36 { position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.08em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; }
+#tinytable_nrpg76bkbr64ukes1lpw td.tinytable_css_4q9rqf3sbqd9caghl4vq, #tinytable_nrpg76bkbr64ukes1lpw th.tinytable_css_4q9rqf3sbqd9caghl4vq { position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.08em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; }
+#tinytable_nrpg76bkbr64ukes1lpw td.tinytable_css_khubtorcugnll8smw4na, #tinytable_nrpg76bkbr64ukes1lpw th.tinytable_css_khubtorcugnll8smw4na { position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.08em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; }
 </style>
     <div class="container">
-      <table class="tinytable" id="tinytable_imlhpaplo0mcz1v584if" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
+      <table class="tinytable" id="tinytable_nrpg76bkbr64ukes1lpw" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
         
         <thead>
               <tr>
@@ -4209,19 +4210,19 @@ function tinytable_rank_sorter(a, b, aRow, bRow, column, dir, sorterParams) {
 
     <script>
       // Create table-specific functions using external factory
-      const tableFns_nknqfe668iljelih6wfq = TinyTable.createTableFunctions("tinytable_nknqfe668iljelih6wfq");
+      const tableFns_8h6kz65atch6riho38hl = TinyTable.createTableFunctions("tinytable_8h6kz65atch6riho38hl");
       // tinytable span after
       window.addEventListener('load', function () {
           var cellsToStyle = [
             // tinytable style arrays after
-          { positions: [ { i: '44', j: 1 }, { i: '44', j: 2 }, { i: '44', j: 3 }, { i: '44', j: 4 }, { i: '44', j: 5 }, { i: '44', j: 6 } ], css_id: 'tinytable_css_rbybjtvbfq5178jv3pui',}, 
-          { positions: [ { i: '0', j: 1 }, { i: '0', j: 2 }, { i: '0', j: 3 }, { i: '0', j: 4 }, { i: '0', j: 5 }, { i: '0', j: 6 } ], css_id: 'tinytable_css_0omv200fqzdr2oozq079',}, 
+          { positions: [ { i: '44', j: 1 }, { i: '44', j: 2 }, { i: '44', j: 3 }, { i: '44', j: 4 }, { i: '44', j: 5 }, { i: '44', j: 6 } ], css_id: 'tinytable_css_ir967y71wkyku0tnqosi',}, 
+          { positions: [ { i: '0', j: 1 }, { i: '0', j: 2 }, { i: '0', j: 3 }, { i: '0', j: 4 }, { i: '0', j: 5 }, { i: '0', j: 6 } ], css_id: 'tinytable_css_889ui1vektkulhutwxol',}, 
           ];
 
           // Loop over the arrays to style the cells
           cellsToStyle.forEach(function (group) {
               group.positions.forEach(function (cell) {
-                  tableFns_nknqfe668iljelih6wfq.styleCell(cell.i, cell.j, group.css_id);
+                  tableFns_8h6kz65atch6riho38hl.styleCell(cell.i, cell.j, group.css_id);
               });
           });
       });
@@ -4424,11 +4425,11 @@ line-height: var(--tt-line-height-footnote-tight);
 </style>
     <style>
 
-#tinytable_nknqfe668iljelih6wfq td.tinytable_css_rbybjtvbfq5178jv3pui, #tinytable_nknqfe668iljelih6wfq th.tinytable_css_rbybjtvbfq5178jv3pui { position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.08em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; }
-#tinytable_nknqfe668iljelih6wfq td.tinytable_css_0omv200fqzdr2oozq079, #tinytable_nknqfe668iljelih6wfq th.tinytable_css_0omv200fqzdr2oozq079 { position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.08em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; }
+#tinytable_8h6kz65atch6riho38hl td.tinytable_css_ir967y71wkyku0tnqosi, #tinytable_8h6kz65atch6riho38hl th.tinytable_css_ir967y71wkyku0tnqosi { position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.08em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; }
+#tinytable_8h6kz65atch6riho38hl td.tinytable_css_889ui1vektkulhutwxol, #tinytable_8h6kz65atch6riho38hl th.tinytable_css_889ui1vektkulhutwxol { position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.08em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; }
 </style>
     <div class="container">
-      <table class="tinytable" id="tinytable_nknqfe668iljelih6wfq" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
+      <table class="tinytable" id="tinytable_8h6kz65atch6riho38hl" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
         
         <thead>
               <tr>
@@ -4945,6 +4946,317 @@ one-level movement toward disagreement that healthcare costs are covered
 by the system was associated with approximately <strong>34% higher
 odds</strong> of reporting unmet healthcare need.</p></li>
 </ul>
+<p>Drawbacks</p>
+<ul>
+<li>ordinal variables were not at level we are alsoing having gender
+baseline cntry basline and so on</li>
+</ul>
+<pre class="r"><code>primary_health_wave$w3hq77=factor(
+  primary_health_wave$w3hq77,
+  levels = c(1,2),
+  labels = c(&quot;Yes&quot;,&quot;No&quot;)
+)</code></pre>
+<pre class="r"><code>primary_health_wave$w3hq57=factor(
+  primary_health_wave$w3hq57,
+  levels=c(5,4,3,2,1),
+  labels=c(&quot;Very bad&quot;,&quot;Bad&quot;,&quot;Fair&quot;,&quot;Good&quot;,&quot;Very good&quot;),
+  ordered=TRUE
+)</code></pre>
+<pre class="r"><code>primary_health_wave$w3hq58=factor(
+  primary_health_wave$w3hq58,
+  levels=c(5,4,3,2,1),
+  labels=c(&quot;Very bad&quot;,&quot;Bad&quot;,&quot;Fair&quot;,&quot;Good&quot;,&quot;Very good&quot;),
+  ordered=TRUE
+)</code></pre>
+<pre class="r"><code>primary_health_wave$w5hq8=factor(
+  primary_health_wave$w5hq8,
+  levels=c(5,4,3,2,1),
+  labels=c(&quot;Never&quot;,&quot;Hardly ever&quot;,&quot;Sometimes&quot;,&quot;Often&quot;,&quot;Always&quot;),
+  ordered=TRUE
+)</code></pre>
+<pre class="r"><code>primary_health_wave$w5hq12=factor(
+  primary_health_wave$w5hq12,
+  levels = c(1,2,3,4),
+  labels = c(
+    &quot;None or almost none of the time&quot;,
+    &quot;Some of the time&quot;,
+    &quot;Most of the time&quot;,
+    &quot;All or almost all of the time&quot;
+  ),
+  ordered = TRUE
+)</code></pre>
+<pre class="r"><code>primary_health_wave$w5hq18=factor(
+  primary_health_wave$w5hq18,
+  levels = c(5,4,3,2,1),
+  labels = c(
+    &quot;Disagree strongly&quot;,
+    &quot;Disagree&quot;,
+    &quot;Neither agree nor disagree&quot;,
+    &quot;Agree&quot;,
+    &quot;Agree strongly&quot;
+  ),
+  ordered = TRUE
+)</code></pre>
+<pre class="r"><code>model_age=glm(
+  needed_any ~ age + gndr + cntry +
+    w3hq57 + w3hq58 +w5hq12 + w5hq11 +w3hq77+w5hq8 + w5hq18 ,
+  family = binomial,
+  data = primary_health_wave
+)
+
+summary(model_age)</code></pre>
+<pre><code>## 
+## Call:
+## glm(formula = needed_any ~ age + gndr + cntry + w3hq57 + w3hq58 + 
+##     w5hq12 + w5hq11 + w3hq77 + w5hq8 + w5hq18, family = binomial, 
+##     data = primary_health_wave)
+## 
+## Coefficients:
+##              Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept) -1.990421   0.268916  -7.402 1.35e-13 ***
+## age         -0.005880   0.003157  -1.862  0.06257 .  
+## gndrFemale   0.134257   0.082534   1.627  0.10381    
+## cntryBE     -0.592660   0.289418  -2.048  0.04058 *  
+## cntryCZ      0.486692   0.230212   2.114  0.03451 *  
+## cntryFI      0.634255   0.204055   3.108  0.00188 ** 
+## cntryFR      0.535979   0.222142   2.413  0.01583 *  
+## cntryGB      1.041521   0.203672   5.114 3.16e-07 ***
+## cntryHU      0.304775   0.238351   1.279  0.20101    
+## cntryIS      0.533488   0.227486   2.345  0.01902 *  
+## cntryPL      0.883529   0.226256   3.905 9.42e-05 ***
+## cntryPT      0.887811   0.223165   3.978 6.94e-05 ***
+## cntrySI      0.665298   0.212887   3.125  0.00178 ** 
+## w3hq57.L    -0.355767   0.244064  -1.458  0.14493    
+## w3hq57.Q     0.172832   0.193569   0.893  0.37193    
+## w3hq57.C     0.035153   0.146668   0.240  0.81058    
+## w3hq57^4    -0.140851   0.102866  -1.369  0.17092    
+## w3hq58.L    -0.687212   0.225714  -3.045  0.00233 ** 
+## w3hq58.Q     0.163281   0.183325   0.891  0.37311    
+## w3hq58.C    -0.158196   0.137318  -1.152  0.24930    
+## w3hq58^4     0.120173   0.091957   1.307  0.19127    
+## w5hq12.L     0.665828   0.167033   3.986 6.71e-05 ***
+## w5hq12.Q     0.244732   0.138192   1.771  0.07657 .  
+## w5hq12.C     0.271517   0.119145   2.279  0.02267 *  
+## w5hq11      -0.004061   0.016842  -0.241  0.80946    
+## w3hq77No     0.071982   0.100545   0.716  0.47404    
+## w5hq8.L      0.560599   0.130447   4.298 1.73e-05 ***
+## w5hq8.Q      0.093609   0.113319   0.826  0.40877    
+## w5hq8.C      0.053393   0.098235   0.544  0.58677    
+## w5hq8^4      0.053446   0.079917   0.669  0.50364    
+## w5hq18.L    -0.855701   0.114396  -7.480 7.42e-14 ***
+## w5hq18.Q     0.112078   0.101274   1.107  0.26843    
+## w5hq18.C     0.185212   0.088625   2.090  0.03663 *  
+## w5hq18^4     0.196605   0.081047   2.426  0.01527 *  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 4903.1  on 8159  degrees of freedom
+## Residual deviance: 4543.6  on 8126  degrees of freedom
+##   (3987 observations deleted due to missingness)
+## AIC: 4611.6
+## 
+## Number of Fisher Scoring iterations: 6</code></pre>
+<ul>
+<li><p>There is weak evidence suggesting that age may be negatively
+associated with unment health care but the effect is not statistically
+significant at the 5% level</p></li>
+<li><p>Females have about 14% higher odds of having unmet healthcare
+needs compared to males, holding all other variables constant but the
+effect is statistically significant at 5% singificanat level</p></li>
+<li><p>Country of residence shows substantial variation in unmet
+healthcare needs. Compared to the reference <code>AT</code> (Austria),
+individuals in several countries—such as <code>GB</code>(United
+Kingdom), <code>PL</code>(Poland), <code>PT</code>(Portugal),
+<code>FI</code>(Finland), <code>FR</code>(France), and
+<code>SI</code>(Slovenia) —have significantly higher odds of reporting
+unmet healthcare needs. For example, individuals in <code>GB</code> have
+nearly 2.8 times higher odds compared to those in <code>AT</code>.In
+contrast, individuals in <code>BE</code> have significantly lower odds
+of unmet healthcare needs relative to <code>AT</code>. Some countries
+(e.g., <code>HU</code>(Hungary)) do not show statistically significant
+differences from the reference category, indicating that their levels of
+unmet healthcare needs are not distinguishable from <code>AT</code>
+based on this model.</p></li>
+<li><p><code>w3hq58</code> There is a significant negative linear
+relationship between Subjective physical health in general and unmet
+health care</p></li>
+<li><p><code>w5hq12</code>There is a significant positive linear
+relationship between Felt lonely during the past week parameter and
+unmet health care</p></li>
+<li><p><code>w5hq8</code> There is a significant positive linear
+relationship between financial difficulties bellow the age of 18
+parameter and unmet health care</p></li>
+<li><p><code>w5hq18</code> Healthcare costs covered by system and unmet
+healthcare shows a strong and statistically significant negative linear
+association In addition, significant higher-order (cubic and quadratic)
+terms suggest that the relationship is not strictly linear, indicating
+some complexity in how different levels of the variable relate to the
+outcome</p></li>
+</ul>
+<pre class="r"><code>model_2 =glmer(
+  needed_any ~ age + gndr + w5hq18 + (1 | cntry),
+  family = binomial,
+  data = primary_health_wave
+)
+summary(model_2)</code></pre>
+<pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace
+##   Approximation) [glmerMod]
+##  Family: binomial  ( logit )
+## Formula: needed_any ~ age + gndr + w5hq18 + (1 | cntry)
+##    Data: primary_health_wave
+## 
+##       AIC       BIC    logLik -2*log(L)  df.resid 
+##    5359.9    5417.0   -2672.0    5343.9      9264 
+## 
+## Scaled residuals: 
+##     Min      1Q  Median      3Q     Max 
+## -0.6337 -0.3507 -0.2694 -0.2241  6.8928 
+## 
+## Random effects:
+##  Groups Name        Variance Std.Dev.
+##  cntry  (Intercept) 0.1612   0.4015  
+## Number of obs: 9272, groups:  cntry, 11
+## 
+## Fixed effects:
+##              Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept) -2.068605   0.182972 -11.306   &lt;2e-16 ***
+## age         -0.005829   0.002315  -2.518   0.0118 *  
+## gndrFemale   0.120289   0.075499   1.593   0.1111    
+## w5hq18.L    -0.989193   0.104351  -9.479   &lt;2e-16 ***
+## w5hq18.Q     0.085424   0.093304   0.916   0.3599    
+## w5hq18.C     0.186397   0.081632   2.283   0.0224 *  
+## w5hq18^4     0.160035   0.074633   2.144   0.0320 *  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Correlation of Fixed Effects:
+##            (Intr) age    gndrFm w518.L w518.Q w518.C
+## age        -0.673                                   
+## gndrFemale -0.289  0.076                            
+## w5hq18.L    0.041 -0.074  0.066                     
+## w5hq18.Q    0.061  0.004  0.026  0.001              
+## w5hq18.C    0.011 -0.013 -0.016  0.256  0.025       
+## w5hq18^4   -0.011  0.043  0.002 -0.014  0.120  0.031</code></pre>
+<p>before adding <code>w5hq12</code> (Felt lonely during the past week)
+we are going to check correlation of <code>w5hq12</code> and
+<code>w5hq18</code></p>
+<pre class="r"><code>cor(as.numeric(primary_health_wave$w5hq18),
+    as.numeric(primary_health_wave$w5hq12),
+    method = &quot;spearman&quot;,
+    use = &quot;complete.obs&quot;)</code></pre>
+<pre><code>## [1] -0.1180322</code></pre>
+<p><code>w5hq18</code> and <code>w5hq12</code> are not strongly
+correlated, so they are unlikely to cause multicollinearity issues in
+the model. we used spearman method here because we wanted to take based
+on their rank in ordeinal rather than thier actual values</p>
+<pre class="r"><code>model_3=glmer(
+  needed_any~age+gndr+w5hq18+w5hq12+(1|cntry),
+  family=binomial,
+  data=primary_health_wave
+)
+summary(model_3)</code></pre>
+<pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace
+##   Approximation) [glmerMod]
+##  Family: binomial  ( logit )
+## Formula: needed_any ~ age + gndr + w5hq18 + w5hq12 + (1 | cntry)
+##    Data: primary_health_wave
+## 
+##       AIC       BIC    logLik -2*log(L)  df.resid 
+##    5276.6    5355.1   -2627.3    5254.6      9233 
+## 
+## Scaled residuals: 
+##     Min      1Q  Median      3Q     Max 
+## -0.9395 -0.3465 -0.2725 -0.2131  7.3467 
+## 
+## Random effects:
+##  Groups Name        Variance Std.Dev.
+##  cntry  (Intercept) 0.1554   0.3942  
+## Number of obs: 9244, groups:  cntry, 11
+## 
+## Fixed effects:
+##              Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept) -1.817816   0.185589  -9.795  &lt; 2e-16 ***
+## age         -0.003806   0.002330  -1.634  0.10234    
+## gndrFemale   0.101847   0.076196   1.337  0.18134    
+## w5hq18.L    -0.918689   0.105649  -8.696  &lt; 2e-16 ***
+## w5hq18.Q     0.088698   0.094415   0.939  0.34750    
+## w5hq18.C     0.197748   0.082158   2.407  0.01609 *  
+## w5hq18^4     0.132581   0.075413   1.758  0.07874 .  
+## w5hq12.L     0.899424   0.141670   6.349 2.17e-10 ***
+## w5hq12.Q     0.219944   0.125504   1.752  0.07969 .  
+## w5hq12.C     0.292528   0.108001   2.709  0.00676 ** 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Correlation of Fixed Effects:
+##            (Intr) age    gndrFm w518.L w518.Q w518.C w518^4 w512.L w512.Q
+## age        -0.640                                                        
+## gndrFemale -0.280  0.070                                                 
+## w5hq18.L    0.046 -0.061  0.062                                          
+## w5hq18.Q    0.050  0.009  0.024 -0.007                                   
+## w5hq18.C    0.011 -0.009 -0.014  0.261  0.020                            
+## w5hq18^4   -0.019  0.038 -0.005 -0.018  0.117  0.027                     
+## w5hq12.L    0.203  0.085  0.012  0.045 -0.041  0.012 -0.050              
+## w5hq12.Q    0.109 -0.018  0.021 -0.026 -0.055 -0.012 -0.016  0.597       
+## w5hq12.C   -0.002 -0.009 -0.022 -0.003 -0.014 -0.004  0.015  0.195  0.628</code></pre>
+<p>will be checking cor again with <code>w5hq8</code> with the other
+paremters in the model</p>
+<pre class="r"><code>cor(as.numeric(primary_health_wave$w5hq8),
+    as.numeric(primary_health_wave$w5hq18),
+    method = &quot;spearman&quot;,
+    use = &quot;complete.obs&quot;)</code></pre>
+<pre><code>## [1] -0.135752</code></pre>
+<pre class="r"><code>cor(as.numeric(primary_health_wave$w5hq8),
+    as.numeric(primary_health_wave$w5hq12),
+    method = &quot;spearman&quot;,
+    use = &quot;complete.obs&quot;)</code></pre>
+<pre><code>## [1] 0.1735201</code></pre>
+<p>its safe to add <code>w5hq8</code> after checking correlation of the
+variables</p>
+<pre class="r"><code>model_4=glmer(
+  needed_any~age+gndr+w5hq18+w5hq12+w5hq8+(1|cntry),
+  family=binomial,
+  data=primary_health_wave
+)
+summary(model_4)</code></pre>
+<pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace
+##   Approximation) [glmerMod]
+##  Family: binomial  ( logit )
+## Formula: needed_any ~ age + gndr + w5hq18 + w5hq12 + w5hq8 + (1 | cntry)
+##    Data: primary_health_wave
+## 
+##       AIC       BIC    logLik -2*log(L)  df.resid 
+##    5221.0    5327.9   -2595.5    5191.0      9162 
+## 
+## Scaled residuals: 
+##     Min      1Q  Median      3Q     Max 
+## -1.1967 -0.3448 -0.2659 -0.2047  8.1094 
+## 
+## Random effects:
+##  Groups Name        Variance Std.Dev.
+##  cntry  (Intercept) 0.1427   0.3778  
+## Number of obs: 9177, groups:  cntry, 11
+## 
+## Fixed effects:
+##              Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept) -1.703247   0.184370  -9.238  &lt; 2e-16 ***
+## age         -0.004963   0.002352  -2.110  0.03486 *  
+## gndrFemale   0.093077   0.076709   1.213  0.22498    
+## w5hq18.L    -0.843935   0.106502  -7.924 2.30e-15 ***
+## w5hq18.Q     0.084894   0.095098   0.893  0.37202    
+## w5hq18.C     0.204802   0.082641   2.478  0.01320 *  
+## w5hq18^4     0.132624   0.075826   1.749  0.08028 .  
+## w5hq12.L     0.810488   0.144023   5.627 1.83e-08 ***
+## w5hq12.Q     0.229449   0.126458   1.814  0.06961 .  
+## w5hq12.C     0.291742   0.108601   2.686  0.00722 ** 
+## w5hq8.L      0.650539   0.120117   5.416 6.10e-08 ***
+## w5hq8.Q      0.071105   0.105580   0.673  0.50065    
+## w5hq8.C      0.103672   0.091902   1.128  0.25929    
+## w5hq8^4      0.038035   0.074720   0.509  0.61072    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 </div>
 </div>
 
