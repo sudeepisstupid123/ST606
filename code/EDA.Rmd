@@ -327,6 +327,10 @@ missing_table=tibble(
 )
 tt(missing_table)
 ```
+
+
+
+
 we might need to remove two varible for the model to take btter resutls 
 w5hq17- Out-of-pocket cost for most recent private mental health consultation -86.6%
 w3hq87- How difficult to take an hour off for personal/family matters during work -50.7% 
@@ -366,6 +370,8 @@ ggplot(primary_health_wave,aes(x=factor(needed_any),y=age,fill=factor(gndr)))+
   )+facet_wrap(vars(cntry))
 ```
 
+
+
 ```{r}
 primary_health_wave |>
   filter(!is.na(gndr))|>
@@ -381,6 +387,10 @@ primary_health_wave |>
   haven::as_factor() |>
   tt()
 ```
+
+
+
+
 Across most countries, the median ages for respondents with met and unmet healthcare needs are broadly similar, though some notable differences emerge.
 
 - **Ireland:** unmet males = 59.5, met males = 57  
@@ -419,15 +429,17 @@ $$
 
 
 ```{r}
-model_age=glm(
+model_0=glm(
   needed_any ~ age + gndr + cntry +
     w3hq57 + w3hq58 +w5hq12 + w5hq11 +w3hq77+w5hq8 + w5hq18 ,
   family = binomial,
   data = primary_health_wave
 )
 
-summary(model_age)
+summary(model_0)
 ```
+
+
 
 Based on the output we can say that 
 
@@ -463,10 +475,15 @@ Drawbacks
 
 - ordinal variables were not at level we are alsoing having gender baseline cntry basline and so on 
 
+making separate data sets for the orindal varaible so we can anyalyse based on anova for later understadning 
+
+```{r}
+PHW=primary_health_wave
+```
 
 
 ```{r}
-primary_health_wave$w3hq77=factor(
+PHW$w3hq77=factor(
   primary_health_wave$w3hq77,
   levels = c(1,2),
   labels = c("Yes","No")
@@ -475,7 +492,7 @@ primary_health_wave$w3hq77=factor(
 
 
 ```{r}
-primary_health_wave$w3hq57=factor(
+PHW$w3hq57=factor(
   primary_health_wave$w3hq57,
   levels=c(5,4,3,2,1),
   labels=c("Very bad","Bad","Fair","Good","Very good"),
@@ -485,7 +502,7 @@ primary_health_wave$w3hq57=factor(
 
 
 ```{r}
-primary_health_wave$w3hq58=factor(
+PHW$w3hq58=factor(
   primary_health_wave$w3hq58,
   levels=c(5,4,3,2,1),
   labels=c("Very bad","Bad","Fair","Good","Very good"),
@@ -494,7 +511,7 @@ primary_health_wave$w3hq58=factor(
 ```
 
 ```{r}
-primary_health_wave$w5hq8=factor(
+PHW$w5hq8=factor(
   primary_health_wave$w5hq8,
   levels=c(5,4,3,2,1),
   labels=c("Never","Hardly ever","Sometimes","Often","Always"),
@@ -503,7 +520,7 @@ primary_health_wave$w5hq8=factor(
 ```
 
 ```{r}
-primary_health_wave$w5hq12=factor(
+PHW$w5hq12=factor(
   primary_health_wave$w5hq12,
   levels = c(1,2,3,4),
   labels = c(
@@ -517,7 +534,7 @@ primary_health_wave$w5hq12=factor(
 ```
 
 ```{r}
-primary_health_wave$w5hq18=factor(
+PHW$w5hq18=factor(
   primary_health_wave$w5hq18,
   levels = c(5,4,3,2,1),
   labels = c(
@@ -531,16 +548,16 @@ primary_health_wave$w5hq18=factor(
 )
 ```
 
-
+Model 1 having level for your orindal varibles
 ```{r}
-model_age=glm(
+model_1=glm(
   needed_any ~ age + gndr + cntry +
     w3hq57 + w3hq58 +w5hq12 + w5hq11 +w3hq77+w5hq8 + w5hq18 ,
   family = binomial,
-  data = primary_health_wave
+  data = PHW
 )
 
-summary(model_age)
+summary(model_1)
 ```
 
 - There is weak evidence suggesting that age may be negatively associated with unment health care but the effect is not statistically significant at the 5% level
@@ -562,63 +579,31 @@ summary(model_age)
 
 
 
+Mixed-Effects Logistic Regression Model
+
+$$
+\begin{aligned}
+\log \left(
+\frac{P(\text{Unmet Health Care Need}_{ij})}
+{1 - P(\text{Unmet Health Care Need}_{ij})}
+\right)
+&= \beta_0 + u_j + \beta_1(\text{Age}_{ij}) + \beta_2(\text{Gender}_{ij}) \\
+&\quad + \beta_3(\text{Subjective Mental Health}_{ij}) \\
+&\quad + \beta_4(\text{Subjective Physical Health}_{ij}) \\
+&\quad + \beta_5(\text{Loneliness}_{ij}) \\
+&\quad + \beta_6(\text{Social Support}_{ij}) \\
+&\quad + \beta_7(\text{Currently in Paid Work}_{ij}) \\
+&\quad + \beta_8(\text{Early-Life Financial Difficulty}_{ij}) \\
+&\quad + \beta_9(\text{Healthcare Costs Covered}_{ij})
+\end{aligned}
+$$
+
+where:
+
+$$
+u_j \sim N(0, \sigma^2_{\text{country}})
+$$
 ```{r}
-model_2 =glmer(
-  needed_any ~ age + gndr + w5hq18 + (1 | cntry),
-  family = binomial,
-  data = primary_health_wave
-)
-summary(model_2)
-```
-
-
-before adding `w5hq12` (Felt lonely during the past week) we are going to check correlation of `w5hq12` and `w5hq18`
-
-```{r}
-cor(as.numeric(primary_health_wave$w5hq18),
-    as.numeric(primary_health_wave$w5hq12),
-    method = "spearman",
-    use = "complete.obs")
-```
-`w5hq18` and `w5hq12` are not strongly correlated, so they are unlikely to cause multicollinearity issues in the model.
-we used spearman method here because we wanted to take based on their rank in ordeinal rather than thier actual values 
-
-
-```{r}
-model_3=glmer(
-  needed_any~age+gndr+w5hq18+w5hq12+(1|cntry),
-  family=binomial,
-  data=primary_health_wave
-)
-summary(model_3)
-```
-
-will be checking cor again with `w5hq8` with the other paremters in the model 
-
-```{r}
-cor(as.numeric(primary_health_wave$w5hq8),
-    as.numeric(primary_health_wave$w5hq18),
-    method = "spearman",
-    use = "complete.obs")
-
-cor(as.numeric(primary_health_wave$w5hq8),
-    as.numeric(primary_health_wave$w5hq12),
-    method = "spearman",
-    use = "complete.obs")
-```
-its safe to add `w5hq8` after checking correlation of the variables
-
-```{r}
-model_4=glmer(
-  needed_any~age+gndr+w5hq18+w5hq12+w5hq8+(1|cntry),
-  family=binomial,
-  data=primary_health_wave
-)
-summary(model_4)
-
-```
-```{r}
-
 model_5=glmer(
   needed_any~age+gndr+w5hq18+w5hq12+w5hq8+w3hq58+w3hq57+w5hq11+w3hq77+(1|cntry),
   family=binomial,
@@ -634,7 +619,7 @@ summary(model_5)
 
 - `w5hq8` There is a significant positive linear relationship between financial difficulties below the age of 18 parameter and unmet health care after accounting for country-level variation
 
-- `w5hq18` Healthcare costs covered by system and unmet healthcare shows a strong and statistically significant negative linear association after accounting for country-level variation. In addition, significant higher-order (cubic and quartic) terms suggest that the relationship is not strictly linear, indicating some complexity in how different levels of the variable relate to the outcome
+- `w5hq18` Healthcare costs covered by system and unmet healthcare shows a strong and statistically significant 
 
 - `w3hq57` There is no statistically significant relationship between Subjective emotional health in general and unmet health care after accounting for country-level variation
 
@@ -645,4 +630,53 @@ summary(model_5)
 - `age` There is a weak negative relationship between age and unmet health care, however this is only marginally significant after accounting for country-level variation
 
 - `gndr` There is no statistically significant relationship between gender and unmet health care after accounting for country-level variation
+
+
+making model now without levels 
+```{r}
+model_6=glmer(
+  needed_any~age+gndr+w5hq18+w5hq12+w5hq8+w3hq58+w3hq57+w5hq11+w3hq77+(1|cntry),
+  family=binomial,
+  data=PHW
+)
+summary(model_6)
+```
+
+
+```{r}
+
+comparison_table <- data.frame(
+  Model = c("Mixed-effects logistic regression with numeric encoding",
+            "Mixed-effects logistic regression with ordered factor encoding",
+            "Logistic regression with numeric encoding",
+            "Logistic regression with ordered factor encodin"),
+  AIC = c(AIC(model_5), AIC(model_6),AIC(model_0),AIC(model_1)),
+  BIC = c(BIC(model_5), BIC(model_6),BIC(model_0),BIC(model_1)),
+  LogLik = c(
+    as.numeric(logLik(model_5)),
+    as.numeric(logLik(model_6)),
+    as.numeric(logLik(model_0)),
+    as.numeric(logLik(model_1))
+    
+  )
+)
+tt(comparison_table)
+```
+Although ordered factor encoding improved model fit as indicated by higher log-likelihood values, the substantial increase in model complexity resulted in higher BIC values. Numeric encoding provided a more parsimonious model and achieved the lowest AIC among all candidate models.
+
+
+Interactions between variables 
+
+possible interaction between variables and why 
+
+1) age * gndr
+An interaction between age and gender was explored to investigate whether the relationship between age and unmet healthcare need differed between males and females. This interaction was theoretically justified, as healthcare utilisation patterns and barriers to care often vary across both age and gender groups. Exploratory visualisation of the data further suggested potential differences in age distributions between males and females across met and unmet healthcare need categories in several countries, supporting the inclusion of the interaction term in the mixed-effects logistic regression model
+
+2)  loneliness * physical_health
+The interaction between loneliness and subjective physical health was explored to assess whether the relationship between physical health and unmet healthcare need differed according to levels of social isolation. Individuals experiencing poor physical health may face greater barriers to healthcare access when combined with loneliness, as limited social support and increased isolation can further restrict healthcare-seeking behaviour. Therefore, the interaction term was included to examine the combined effect of physical health and loneliness on unmet healthcare need.
+
+
+posssible interaction but will need diagrams to prove this for reasoning 
+
+
 
